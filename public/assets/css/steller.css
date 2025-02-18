@@ -11644,3 +11644,8 @@ pre {
 .section.bg-gray {
   background: white;
 }
+
+.highlight {
+  border: 2px solid #ff6600; /* Change the border color to an orange hue */
+  background-color: #fff3e6; /* Light background color to highlight */
+}

@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="assets/vendors/themify-icons/css/themify-icons.css">
     <!-- Bootstrap + Steller main styles -->
 	<link rel="stylesheet" href="assets/css/steller.css">
+    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
 </head>
 <body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
 
@@ -62,15 +63,16 @@
                 <p>Software Developer</p>
 
                 <div class="buttons pt-3">
-                    <button class="btn btn-primary rounded">HIRE ME</button>
+                    <button class="btn btn-primary rounded" id="hire-me-button-1">HIRE ME</button>
+                    
                     <!--<button class="btn btn-dark rounded">DOWNLOAD CV</button>-->
                 </div>      
 
                 <div class="socials mt-4">
-                    <a class="social-item" href="javascript:void(0)"><i class="ti-facebook"></i></a>
-                    <a class="social-item" href="javascript:void(0)"><i class="ti-google"></i></a>
-                    <a class="social-item" href="javascript:void(0)"><i class="ti-github"></i></a>
-                    <a class="social-item" href="javascript:void(0)"><i class="ti-twitter"></i></a>
+                    <a class="social-item" href="https://www.facebook.com/kenny.muteti.90/" target="_blank"><i class="ti-facebook"></i></a>
+                    <a class="social-item" href="https://wa.link/vgyk8g" target="_blank"><i class="ti-google"></i></a>
+                    <a class="social-item" href="https://github.com/kendakyn" target="_blank"><i class="ti-github"></i></a>
+                    <a class="social-item" href="https://www.instagram.com/ken_da_kyn/" target="_blank"><i class="ti-instagram"></i></a>
                 </div>
             </div>              
             <div class="img-holder">
@@ -355,7 +357,7 @@
                                     <span id="likes-count-1">456</span></a>
                                 <a href="javascript:void(0)"><i class="ti-comment"></i> 123</a>
                             </div>
-                            <p>The First Computer Bug: A Literal Moth in the Machine 🖥️🐞On September 9, 1947, a team of computer scientists, including pioneering figures like</p>
+                            <p>The First Computer Bug was an actual bug: A Literal Moth in the Machine 🖥️🐞On September 9, 1947, a team of computer scientists, including</p>
                             <a href="https://medium.com/@iamRadhaKulkarni/the-first-computer-bug-a-literal-moth-in-the-machine-%EF%B8%8F-73a431f8df1c"  target="_blank">Read More..</a>
                         </div>
                     </div>
@@ -410,7 +412,7 @@
                             <p class="mb-3">Looking for a reliable and skilled developer? <br>Get in touch, and let's discuss how we can work together to achieve your goals with high-quality, efficient solutions.</p>
                         </div>
                         <div class="col-sm-3 text-center text-sm-right">
-                            <button class="btn btn-light rounded">Hire Me</button>
+                            <button class="btn btn-light rounded" id="hire-me-button-2">Hire Me</button>
                         </div>
                     </div>
                 </div> 
@@ -427,35 +429,47 @@
             <p class="mb-5 pb-4">I’m always open to new opportunities and collaborations. If you have a project in mind, or if you just want to say hello, feel free to reach out.  <br> I’d love to discuss how I can assist with your software development needs and bring your ideas to life.</p>
 
             <div class="contact text-left">
-                <div class="form">
-                    <h6 class="subtitle">Available 24/7</h6>
-                    <h6 class="section-title mb-4">Get In Touch</h6>
-                    <form>
-                        <div class="form-group">
-                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email" required>
-                        </div>
-                        <div class="form-group">
-                            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" required>
-                        </div>
-                        <div class="form-group">
-                            <textarea name="contact-message" id="" cols="30" rows="5" class="form-control" placeholder="Message"></textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary btn-block rounded w-lg">Send Message</button>
-                    </form>
-                </div>
+                <form id="contact-form">
+                    <div class="form-group">
+                        <input type="email" class="form-control" id="exampleInputEmail1" name="email" placeholder="Enter email" required>
+                    </div>
+                    <!--<div class="form-group">
+                        <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Password" required>
+                    </div>-->
+                    <div class="form-group">
+                        <textarea name="message" id="message" cols="30" rows="5" class="form-control" placeholder="Message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block rounded w-lg">Send Message</button>
+                </form>
+                
+                <script>
+                  (function() {
+                    emailjs.init("h-qUGQGz-oWnHsVnm"); // Replace with your EmailJS user ID
+                  })();
+                
+                  document.getElementById("contact-form").addEventListener("submit", function(event) {
+                    event.preventDefault();
+                    emailjs.sendForm("service_qnq419g", "template_4lodvws", this)
+                      .then(function(response) {
+                        alert("Message sent successfully");
+                      }, function(error) {
+                        alert("Failed to send message: " + error.text);
+                      });
+                  });
+                </script>
                 <div class="contact-infos">
                     <div class="item">
                         <i class="ti-location-pin"></i>
                         <div class="">
                             <h5>Location</h5>
-                            <p> Nairobi, Kenya</p>
+                            <p> Mombasa, Kenya</p>
                         </div>                          
                     </div>
                     <div class="item">
                         <i class="ti-mobile"></i>
                         <div>
                             <h5>Phone Number</h5>
-                            <p>+254 740 527 585</p>
+                            <p><a href="https://wa.link/vgyk8g" target="_blank">+254 740 527 585</a></p>
                         </div>                          
                     </div>
                     <div class="item">
@@ -484,7 +498,7 @@
                 <div class="col-sm-6">
                     <div class="socials">
                         <a class="social-item" href="https://www.facebook.com/kenny.muteti.90/" target="_blank"><i class="ti-facebook"></i></a>
-                        <a class="social-item" href="javascript:void(0)"><i class="fa fa-whatsapp"></i></a>
+                        <a class="social-item" href="https://wa.link/vgyk8g" target="_blank"><i class="fa fa-whatsapp"></i></a>
                         <a class="social-item" href="https://github.com/kendakyn" target="_blank"><i class="ti-github"></i></a>
                         <a class="social-item" href="https://www.instagram.com/ken_da_kyn/" target="_blank"><i class="ti-instagram"></i></a>
                     </div>
@@ -504,5 +518,17 @@
     <script src="assets/js/steller.js"></script>
     <script src="script.js"></script>
 
+    <script>
+        document.getElementById('hire-me-button-1').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        document.getElementById('hire-me-button-2').addEventListener('click', function(e) {
+        e.preventDefault();
+        document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+    });
+    </script>
+    
 </body>
 </html>
