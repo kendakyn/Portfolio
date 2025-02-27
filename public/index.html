@@ -1,534 +1,1141 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Bringing Ideas to Life Through Code">
     <meta name="author" content="Devcrud">
     <title>Ken's Portfolio</title>
-    <!-- font icons -->
-    <link rel="stylesheet" href="assets/vendors/themify-icons/css/themify-icons.css">
-    <!-- Bootstrap + Steller main styles -->
-	<link rel="stylesheet" href="assets/css/steller.css">
-    <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- AOS for Animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            --primary: #007bff;
+            --secondary: #6c757d;
+            --dark: #212529;
+            --light: #f8f9fa;
+            --accent: #00d4ff;
+            --gradient: linear-gradient(135deg, #007bff, #00d4ff);
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f5f7fa;
+            color: var(--dark);
+            transition: all 0.5s ease;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .dark-mode {
+            background: #1e1e1e;
+            color: #e9ecef;
+        }
+
+        .dark-mode .navbar, .dark-mode .card, .dark-mode footer, .dark-mode .modal-content {
+            background: #2c3034 !important;
+            color: #e9ecef;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .nav-link {
+            font-weight: 600;
+            color: var(--dark) !important;
+            padding: 10px 15px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--primary) !important;
+            background: rgba(0, 123, 255, 0.1);
+            border-radius: 5px;
+        }
+
+        /* Header */
+        .header {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            background: var(--gradient);
+        }
+
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
+
+        .header .container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .header h6, .header p {
+            color: #fff;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .header .title {
+            font-size: 4rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .typed-text {
+            color: var(--accent);
+            border-right: 2px solid #fff;
+            animation: blink 0.7s infinite;
+        }
+
+        @keyframes blink {
+            50% { border-color: transparent; }
+        }
+
+        .btn-custom {
+            background: var(--primary);
+            color: #fff;
+            padding: 12px 35px;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.4s ease;
+            border: 2px solid transparent;
+        }
+
+        .btn-custom:hover {
+            background: transparent;
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 123, 255, 0.5);
+        }
+
+        .socials a {
+            font-size: 1.8rem;
+            margin: 0 20px;
+            color: #fff;
+            transition: all 0.3s ease;
+        }
+
+        .socials a:hover {
+            color: var(--accent);
+            transform: scale(1.3) rotate(5deg);
+        }
+
+        .widget {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 30px 0;
+            backdrop-filter: blur(5px);
+        }
+
+        .widget-item h2 {
+            color: var(--accent);
+            font-size: 2.5rem;
+            margin-bottom: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .widget-item:hover h2 {
+            transform: scale(1.1);
+        }
+
+        .widget-item p {
+            color: #fff;
+            font-size: 1rem;
+        }
+
+        /* Sections */
+        .section {
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .section-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('assets/imgs/section-bg.png') no-repeat center/cover;
+            opacity: 0.1;
+            z-index: -1;
+            animation: bgMove 20s infinite linear;
+        }
+
+        @keyframes bgMove {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(-20px); }
+            100% { transform: translateX(0); }
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: var(--secondary);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            background: #fff;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-body {
+            padding: 30px;
+        }
+
+        .progress {
+            height: 12px;
+            border-radius: 6px;
+            background: #e9ecef;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .progress-bar {
+            background: var(--gradient);
+            transition: width 2s ease-in-out;
+        }
+
+        .progress-bar span {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #fff;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Portfolio */
+        .img-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            cursor: pointer;
+        }
+
+        .img-wrapper img {
+            transition: transform 0.5s ease;
+        }
+
+        .img-wrapper:hover img {
+            transform: scale(1.1);
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 123, 255, 0.9);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .img-wrapper:hover .overlay {
+            opacity: 1;
+        }
+
+        .overlay-infos h5 {
+            color: #fff;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .overlay-infos a {
+            color: #fff;
+            margin: 0 15px;
+            font-size: 1.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .overlay-infos a:hover {
+            color: var(--accent);
+            transform: scale(1.3);
+        }
+
+        /* Modal */
+        .modal-content {
+            border-radius: 15px;
+            background: #fff;
+            border: none;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-header {
+            border-bottom: none;
+            padding: 20px 30px;
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        /* Testimonials */
+        .carousel-item {
+            transition: transform 0.6s ease;
+        }
+
+        .testmonial-card img {
+            border-radius: 50%;
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            margin-bottom: 20px;
+        }
+
+        /* Contact */
+        .form-control {
+            border-radius: 12px;
+            padding: 15px;
+            border: 1px solid #ced4da;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 15px rgba(0, 123, 255, 0.3);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: #fff;
+            padding: 60px 0;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--gradient);
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        footer .container {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Scroll Progress */
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 5px;
+            background: var(--gradient);
+            z-index: 1000;
+            transition: width 0.3s ease;
+        }
+
+        /* Back to Top */
+        #back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            opacity: 0;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        #back-to-top.visible {
+            opacity: 1;
+        }
+
+        #back-to-top:hover {
+            background: var(--accent);
+            transform: scale(1.1);
+        }
+
+        /* Dark Mode Toggle */
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--primary);
+            color: #fff;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+
+        .dark-mode-toggle:hover {
+            background: var(--accent);
+            transform: rotate(360deg);
+        }
+    </style>
 </head>
 <body data-spy="scroll" data-target=".navbar" data-offset="40" id="home">
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-progress"></div>
 
-    <!-- Page navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" data-spy="affix" data-offset-top="0">
+    <!-- Back to Top Button -->
+    <button id="back-to-top"><i class="fas fa-arrow-up"></i></button>
+
+    <!-- Dark Mode Toggle -->
+    <button class="dark-mode-toggle" id="darkModeToggle">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- Page Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#"><img src="assets/imgs/logo.svg" alt=""></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand" href="#" data-aos="fade-right">
+                <img src="assets/imgs/logo.svg" alt="Ken's Logo" style="max-height: 45px;">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto align-items-center">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#home">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#about">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#service">Service</a>
-                    </li>                   
-                    <li class="nav-item">
-                        <a class="nav-link" href="#portfolio">Portfolio</a>
-                    </li>
-                    <!--<li class="nav-item">
-                        <a class="nav-link" href="#testmonial">Testmonial</a>
-                    </li>-->
-                    <li class="nav-item">
-                        <a class="nav-link" href="#blog">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#contact">Contact</a>
-                    </li>
-                   <!-- <li class="nav-item">
-                        <a class="- btn btn-primary rounded ml-4" href="components.html">Copmonents</a>
-                    </li>-->
+                <ul class="navbar-nav ms-auto align-items-center" data-aos="fade-left">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#service">Service</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#portfolio">Portfolio</a></li>
+                   <!-- <li class="nav-item"><a class="nav-link" href="#testmonial">Testimonial</a></li>-->
+                    <li class="nav-item"><a class="nav-link" href="#blog">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
                 </ul>
             </div>
-        </div>          
+        </div>
     </nav>
-    <!-- End of page navibation -->
 
     <!-- Page Header -->
     <header class="header" id="home">
-        <div class="container">
-            <div class="infos">
-                <h6 class="subtitle">Hello, I'm</h6>
-                <h6 class="title">Ken Muteti</h6>
-                <p>Software Developer</p>
-
-                <div class="buttons pt-3">
-                    <button class="btn btn-primary rounded" id="hire-me-button-1">HIRE ME</button>
-                    
-                    <!--<button class="btn btn-dark rounded">DOWNLOAD CV</button>-->
-                </div>      
-
-                <div class="socials mt-4">
-                    <a class="social-item" href="https://www.facebook.com/kenny.muteti.90/" target="_blank"><i class="ti-facebook"></i></a>
-                    <a class="social-item" href="https://wa.link/vgyk8g" target="_blank"><i class="ti-google"></i></a>
-                    <a class="social-item" href="https://github.com/kendakyn" target="_blank"><i class="ti-github"></i></a>
-                    <a class="social-item" href="https://www.instagram.com/ken_da_kyn/" target="_blank"><i class="ti-instagram"></i></a>
+        <div id="particles-js"></div>
+        <div class="container text-center text-md-start">
+            <div class="row align-items-center">
+                <div class="col-md-6 infos" data-aos="fade-up" data-aos-delay="100">
+                    <h6 class="subtitle">Hello, I'm</h6>
+                    <h6 class="title" id="typed-title">Ken Muteti</h6>
+                    <p><span class="typed-text" id="typed-job"></span></p>
+                    <div class="buttons pt-4">
+                        <button class="btn btn-custom" id="hire-me-button-1">Hire Me</button>
+                    </div>
+                    <div class="socials mt-5">
+                        <a class="social-item" href="https://www.facebook.com/kenny.muteti.90/" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a class="social-item" href="https://wa.link/vgyk8g" target="_blank" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <a class="social-item" href="https://github.com/kendakyn" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                        <a class="social-item" href="https://www.instagram.com/ken_da_kyn/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    </div>
                 </div>
-            </div>              
-            <div class="img-holder">
-                <img src="assets/imgs/man.svg" alt="">
-            </div>      
-        </div>  
-
-        <!-- Header-widget -->
-        <div class="widget">
-            <div class="widget-item">
-                <h2>10+</h2>
-                <p>Projects Completed</p>
+                <div class="col-md-6 img-holder text-center" data-aos="zoom-in" data-aos-delay="300">
+                    <img src="assets/imgs/man.svg" alt="Ken Muteti" class="img-fluid" style="max-width: 85%; border-radius: 50%; box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);">
+                </div>
             </div>
-            <div class="widget-item">
-                <h2>10,000+</h2>
-                <p>Lines of Code Written</p>
-            </div>
-            <div class="widget-item">
-                <h2>100%</h2>
-                <p>Commitment to Quality</p>
+        </div>
+        <div class="widget text-center" data-aos="fade-up" data-aos-delay="500">
+            <div class="container">
+                <div class="row">
+                    <div class="col-4 widget-item">
+                        <h2>10+</h2>
+                        <p>Projects Completed</p>
+                    </div>
+                    <div class="col-4 widget-item">
+                        <h2>10,000+</h2>
+                        <p>Lines of Code Written</p>
+                    </div>
+                    <div class="col-4 widget-item">
+                        <h2>100%</h2>
+                        <p>Commitment to Quality</p>
+                    </div>
+                </div>
             </div>
         </div>
     </header>
-    <!-- End of Page Header -->
-    
-    <!-- About section -->
-    <section id="about" class="section mt-3">
-        <div class="container mt-5">
-            <div class="row text-center text-md-left">
-                <div class="col-md-3">
-                    <img src="assets/imgs/avatar.jpg" alt="" class="img-thumbnail mb-4">
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <div class="section-bg"></div>
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <h6 class="subtitle">About Me</h6>
+                <h6 class="section-title">Ken Muteti</h6>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-md-4 text-center" data-aos="zoom-in">
+                    <img src="assets/imgs/avatar.jpg" alt="Ken Muteti" class="img-fluid rounded-circle shadow-lg mb-4" style="max-width: 300px; border: 5px solid var(--primary);">
                 </div>
-                <div class="pl-md-4 col-md-9">
-                    <h6 class="title">Ken Muteti</h6>
+                <div class="col-md-8" data-aos="fade-left">
                     <p class="subtitle">Software Developer</p>
                     <p><b>What I Do</b></p>
-
-                        <p>Develop and maintain web applications using Laravel, PHP, and C#.</p>
-                        
-                        <p>Design and implement backend systems with Java, C, and C++.</p>
-                        
-                        <p>Build and optimize relational databases for seamless data management.</p>
-                        
-                        <p>Collaborate with teams to deliver high-quality, scalable software solutions.</p>
-                    
-                    <button class="btn btn-primary rounded mt-3">DOWNLOAD CV</button>                   
+                    <ul class="list-unstyled">
+                        <li class="mb-3"><i class="fas fa-check-circle text-primary me-3"></i> Develop and maintain web applications using Laravel, PHP, and C#.</li>
+                        <li class="mb-3"><i class="fas fa-check-circle text-primary me-3"></i> Design and implement backend systems with Java, C, and C++.</li>
+                        <li class="mb-3"><i class="fas fa-check-circle text-primary me-3"></i> Build and optimize relational databases for seamless data management.</li>
+                        <li class="mb-3"><i class="fas fa-check-circle text-primary me-3"></i> Collaborate with teams to deliver high-quality, scalable software solutions.</li>
+                    </ul>
+                    <button class="btn btn-custom mt-4">Download CV</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Service section -->
-    <section id="service" class="section">
+    <!-- Service Section -->
+    <section id="service" class="section bg-light">
+        <div class="section-bg"></div>
         <div class="container text-center">
-            <h6 class="subtitle">Service</h6>
-            <h6 class="section-title mb-4">What I Do</h6>
-            <p class="mb-5 pb-4">I specialize in delivering high-quality software solutions tailored to your needs. <br> Whether you're looking for a dynamic website, a custom software solution, or a mobile app, I’m equipped with the expertise to bring your ideas to life.</p>
-
+            <h6 class="subtitle" data-aos="fade-up">Service</h6>
+            <h6 class="section-title mb-4" data-aos="fade-up" data-aos-delay="100">What I Do</h6>
+            <p class="mb-5 pb-4" data-aos="fade-up" data-aos-delay="200">I specialize in delivering high-quality software solutions tailored to your needs. Whether you're looking for a dynamic website, a custom software solution, or a mobile app, I’m equipped with the expertise to bring your ideas to life.</p>
             <div class="row">
-                <div class="col-sm-6 col-md-3 mb-4">
-                    <div class="custom-card card border">
+                <div class="col-md-3 mb-4" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="card">
                         <div class="card-body">
-                            <i class="icon ti-crown"></i>
-                            <h5>Software Consulting</h5>
+                            <i class="fas fa-crown fa-4x text-primary mb-4"></i>
+                            <h5 class="card-title">Software Consulting</h5>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-md-3 mb-4">
-                    <div class="custom-card card border">
+                <div class="col-md-3 mb-4" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="card">
                         <div class="card-body">
-                            <i class="icon ti-desktop"></i>
-                            <h5>Web Design</h5>
+                            <i class="fas fa-desktop fa-4x text-primary mb-4"></i>
+                            <h5 class="card-title">Web Design</h5>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-md-3 mb-4">
-                    <div class="custom-card card border">
+                <div class="col-md-3 mb-4" data-aos="zoom-in" data-aos-delay="500">
+                    <div class="card">
                         <div class="card-body">
-                            <i class="icon ti-mobile"></i>
-                            <h5>App Design</h5>
+                            <i class="fas fa-mobile-alt fa-4x text-primary mb-4"></i>
+                            <h5 class="card-title">App Design</h5>
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-md-3 mb-4">
-                    <div class="custom-card card border">
+                <div class="col-md-3 mb-4" data-aos="zoom-in" data-aos-delay="600">
+                    <div class="card">
                         <div class="card-body">
-                            <i class="icon ti-bar-chart"></i>
-                            <h5>Database Design</h5>
+                            <i class="fas fa-database fa-4x text-primary mb-4"></i>
+                            <h5 class="card-title">Database Design</h5>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- End of Sectoin -->
 
-    <!-- Skills section -->
-    <section class="section">
-        <div class="container text-center">
-            <h6 class="subtitle">Skills</h6>
-            <h6 class="section-title mb-4">Why Choose me</h6>
-            <p class="mb-5 pb-4">I have the expertise in Laravel, PHP, Java, C, C++, and C# to turn your ideas into reality with precision and efficiency.</p>
-
-            <div class="row text-left">
-                <div class="col-sm-6">
-                    <h6 class="mb-3">Web Development</h6>
+   <!-- Skills Section -->
+<section id="skills" class="section">
+    <div class="section-bg"></div>
+    <div class="container text-center">
+        <h6 class="subtitle" data-aos="fade-up">Skills</h6>
+        <h6 class="section-title mb-4" data-aos="fade-up" data-aos-delay="100">Why Choose Me</h6>
+        <p class="mb-5 pb-4" data-aos="fade-up" data-aos-delay="200">
+            I have the expertise in Laravel, PHP, Java, C, C++, and C# to turn your ideas into reality with precision and efficiency.
+        </p>
+        <div class="row justify-content-center">
+            <div class="col-md-8" data-aos="zoom-in" data-aos-delay="300">
+                <div class="skill-item mb-4">
+                    <h6 style="color: var(--dark); font-size: 1.2rem; margin-bottom: 10px; text-align: left;">Web Development</h6>
                     <div class="progress">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 99%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><span>99%</span></div>
+                        <div class="progress-bar" role="progressbar" style="width: 85%;" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100">
+                            <span>85%</span>
+                        </div>
                     </div>
                 </div>
-                <div class="col-sm-6">
-                    <h6 class="mb-3">Software Development</h6>
+                <div class="skill-item mb-4">
+                    <h6 style="color: var(--dark); font-size: 1.2rem; margin-bottom: 10px; text-align: left;">Software Development</h6>
                     <div class="progress">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 92%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><span>92%</span></div>
+                        <div class="progress-bar" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100">
+                            <span>90%</span>
+                        </div>
                     </div>
                 </div>
-                <div class="col-sm-6">
-                    <h6 class="mb-3">Mobile App Development</h6>
+                <div class="skill-item mb-4">
+                    <h6 style="color: var(--dark); font-size: 1.2rem; margin-bottom: 10px; text-align: left;">Mobile App Development</h6>
                     <div class="progress">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 95%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><span>95%</span></div>
+                        <div class="progress-bar" role="progressbar" style="width: 80%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100">
+                            <span>80%</span>
+                        </div>
                     </div>
                 </div>
-                <div class="col-sm-6">
-                    <h6 class="mb-3">Database Management</h6>
+                <div class="skill-item">
+                    <h6 style="color: var(--dark); font-size: 1.2rem; margin-bottom: 10px; text-align: left;">Database Management</h6>
                     <div class="progress">
-                        <div class="progress-bar bg-primary" role="progressbar" style="width: 98%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><span>98%</span></div>
+                        <div class="progress-bar" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">
+                            <span>75%</span>
+                        </div>
                     </div>
                 </div>
-            </div>  
+            </div>
         </div>
-    </section>
-    <!-- End of Skills sections -->
+    </div>
+</section>
 
-    <!-- Portfolio section -->
-    <section id="portfolio" class="section">
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="section bg-light">
+        <div class="section-bg"></div>
         <div class="container text-center">
-            <h6 class="subtitle">Portfolio</h6>
-            <h6 class="section-title mb-4">Take a look at some of the projects I have worked on</h6>
-            <p class="mb-5 pb-4">.</p>
-
+            <h6 class="subtitle" data-aos="fade-up">Portfolio</h6>
+            <h6 class="section-title mb-4" data-aos="fade-up" data-aos-delay="100">Take a Look at Some of the Projects I Have Worked On</h6>
+            <p class="mb-5 pb-4" data-aos="fade-up" data-aos-delay="200">.</p>
             <div class="row">
-                <div class="col-sm-4">
-                    <div class="img-wrapper">
-                        <img src="assets/imgs/application.jpeg" alt="">
+                <div class="col-md-4 mb-4" data-aos="zoom-in" data-aos-delay="300">
+                    <div class="img-wrapper" data-bs-toggle="modal" data-bs-target="#projectModal" data-project="student">
+                        <img src="assets/imgs/application.jpeg" alt="Student Application Module" class="img-fluid">
                         <div class="overlay">
                             <div class="overlay-infos">
                                 <h5>Student Application Module</h5>
-                                <a href="javascript:void(0)"><i class="ti-zoom-in"></i></a>
-                                <a href="https://github.com/kendakyn/Student_Application-Modele"><i class="ti-link"></i></a>
-                            </div>  
+                                <a href="javascript:void(0)"><i class="fas fa-search-plus"></i></a>
+                                <a href="https://github.com/kendakyn/Student_Application-Modele" target="_blank"><i class="fas fa-link"></i></a>
+                            </div>
                         </div>
                     </div>
-                    <div class="img-wrapper">
-                        <img src="assets/imgs/folio-2.jpg" alt="">
+                </div>
+                <div class="col-md-4 mb-4" data-aos="zoom-in" data-aos-delay="400">
+                    <div class="img-wrapper" data-bs-toggle="modal" data-bs-target="#projectModal" data-project="project2">
+                        <img src="assets/imgs/folio-2.jpg" alt="Project Title" class="img-fluid">
                         <div class="overlay">
                             <div class="overlay-infos">
                                 <h5>Project Title</h5>
-                                <a href="javascript:void(0)"><i class="ti-zoom-in"></i></a>
-                                <a href="javascript:void(0)"><i class="ti-link"></i></a>
-                            </div>                              
+                                <a href="javascript:void(0)"><i class="fas fa-search-plus"></i></a>
+                                <a href="javascript:void(0)"><i class="fas fa-link"></i></a>
+                            </div>
                         </div>
-                    </div>                  
+                    </div>
                 </div>
-                <div class="col-sm-4">
-                    <div class="img-wrapper">
-                        <img src="assets/imgs/folio-3.jpg" alt="">
+                <div class="col-md-4 mb-4" data-aos="zoom-in" data-aos-delay="500">
+                    <div class="img-wrapper" data-bs-toggle="modal" data-bs-target="#projectModal" data-project="calculator">
+                        <img src="assets/imgs/folio-3.jpg" alt="Calculator" class="img-fluid">
                         <div class="overlay">
                             <div class="overlay-infos">
                                 <h5>Calculator</h5>
-                                <a href="javascript:void(0)"><i class="ti-zoom-in"></i></a>
-                                <a href="javascript:void(0)"><i class="ti-link"></i></a>
-                            </div>  
+                                <a href="javascript:void(0)"><i class="fas fa-search-plus"></i></a>
+                                <a href="javascript:void(0)"><i class="fas fa-link"></i></a>
+                            </div>
                         </div>
                     </div>
-                    <div class="img-wrapper">
-                        <img src="assets/imgs/folio-4.jpg" alt="">
+                </div>
+                <div class="col-md-4 mb-4" data-aos="zoom-in" data-aos-delay="600">
+                    <div class="img-wrapper" data-bs-toggle="modal" data-bs-target="#projectModal" data-project="password">
+                        <img src="assets/imgs/folio-4.jpg" alt="Password Generator" class="img-fluid">
                         <div class="overlay">
                             <div class="overlay-infos">
                                 <h5>Password Generator</h5>
-                                <a href="javascript:void(0)"><i class="ti-zoom-in"></i></a>
-                                <a href="javascript:void(0)"><i class="ti-link"></i></a>
-                            </div>                              
+                                <a href="javascript:void(0)"><i class="fas fa-search-plus"></i></a>
+                                <a href="javascript:void(0)"><i class="fas fa-link"></i></a>
+                            </div>
                         </div>
-                    </div>                  
+                    </div>
                 </div>
-                <div class="col-sm-4">
-                    <div class="img-wrapper">
-                        <img src="assets/imgs/folio-5.jpg" alt="">
+                <div class="col-md-4 mb-4" data-aos="zoom-in" data-aos-delay="700">
+                    <div class="img-wrapper" data-bs-toggle="modal" data-bs-target="#projectModal" data-project="manuscript">
+                        <img src="assets/imgs/folio-5.jpg" alt="Manuscript Submission System" class="img-fluid">
                         <div class="overlay">
                             <div class="overlay-infos">
                                 <h5>Manuscript Submission System</h5>
-                                <a href="javascript:void(0)"><i class="ti-zoom-in"></i></a>
-                                <a href="javascript:void(0)"><i class="ti-link"></i></a>
-                            </div>  
+                                <a href="javascript:void(0)"><i class="fas fa-search-plus"></i></a>
+                                <a href="javascript:void(0)"><i class="fas fa-link"></i></a>
+                            </div>
                         </div>
                     </div>
-                    <div class="img-wrapper">
-                        <img src="assets/imgs/folio-6.jpg" alt="">
+                </div>
+                <div class="col-md-4 mb-4" data-aos="zoom-in" data-aos-delay="800">
+                    <div class="img-wrapper" data-bs-toggle="modal" data-bs-target="#projectModal" data-project="project6">
+                        <img src="assets/imgs/folio-6.jpg" alt="Project Title" class="img-fluid">
                         <div class="overlay">
                             <div class="overlay-infos">
                                 <h5>Project Title</h5>
-                                <a href="javascript:void(0)"><i class="ti-zoom-in"></i></a>
-                                <a href="javascript:void(0)"><i class="ti-link"></i></a>
-                            </div>                              
+                                <a href="javascript:void(0)"><i class="fas fa-search-plus"></i></a>
+                                <a href="javascript:void(0)"><i class="fas fa-link"></i></a>
+                            </div>
                         </div>
-                    </div>                  
+                    </div>
                 </div>
             </div>
-
         </div>
     </section>
-    <!-- End of portfolio section -->
 
-    <!-- Testmonial Section -->
-    <!--<section id="testmonial" class="section">
+    <!-- Project Modal -->
+    <div class="modal fade" id="projectModal" tabindex="-1" aria-labelledby="projectModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="projectModalLabel">Project Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <img id="projectImage" src="" alt="Project Image" class="img-fluid mb-3">
+                    <h5 id="projectTitle"></h5>
+                    <p id="projectDescription"></p>
+                    <a id="projectLink" href="#" target="_blank" class="btn btn-custom">View Project</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Testimonial Section 
+    <section id="testmonial" class="section">
+        <div class="section-bg"></div>
         <div class="container text-center">
-            <h6 class="subtitle">Testmonial</h6>
-            <h6 class="section-title mb-4">What People Say About Me</h6>
-            <p class="mb-5 pb-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. In alias dignissimos. <br> rerum commodi corrupti, temporibus non quam.</p>
-
-
-            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                <ol class="carousel-indicators">
-                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                </ol>
+            <h6 class="subtitle" data-aos="fade-up">Testimonial</h6>
+            <h6 class="section-title mb-4" data-aos="fade-up" data-aos-delay="100">What People Say About Me</h6>
+            <p class="mb-5 pb-4" data-aos="fade-up" data-aos-delay="200">Lorem ipsum dolor sit amet, consectetur adipisicing elit. In alias dignissimos. Rerum commodi corrupti, temporibus non quam.</p>
+            <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                    <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                    <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                    <button type="button" data-bs-target="#testimonialCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
                 <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <div class="card testmonial-card border">
+                        <div class="card testmonial-card">
                             <div class="card-body">
-                                <img src="assets/imgs/avatar-1.jpg" alt="">
+                                <img src="assets/imgs/avatar-1.jpg" alt="Emma Re">
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam nostrum voluptates in enim vel amet?</p>
-                                <h1 class="title">Emma Re</h1>
-                                <h1 class="subtitle">Graphic Designer</h1>
+                                <h5 class="title">Emma Re</h5>
+                                <p class="subtitle">Graphic Designer</p>
                             </div>
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <div class="card testmonial-card border">
+                        <div class="card testmonial-card">
                             <div class="card-body">
-                                <img src="assets/imgs/avatar-2.jpg" alt="">
+                                <img src="assets/imgs/avatar-2.jpg" alt="James Bert">
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam nostrum voluptates in enim vel amet?</p>
-                                <h1 class="title">James Bert</h1>
-                                <h1 class="subtitle">Web Designer</h1>
+                                <h5 class="title">James Bert</h5>
+                                <p class="subtitle">Web Designer</p>
                             </div>
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <div class="card testmonial-card border">
+                        <div class="card testmonial-card">
                             <div class="card-body">
-                                <img src="assets/imgs/avatar-3.jpg" alt="">
+                                <img src="assets/imgs/avatar-3.jpg" alt="Michael Abra">
                                 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Magnam nostrum voluptates in enim vel amet?</p>
-                                <h1 class="title">Michael Abra</h1>
-                                <h1 class="subtitle">Web Developer</h1>
+                                <h5 class="title">Michael Abra</h5>
+                                <p class="subtitle">Web Developer</p>
                             </div>
                         </div>
                     </div>
                 </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </button>
             </div>
         </div>
-    </section>-->
-    <!-- End of testmonial section -->
+    </section> -->
 
     <!-- Blog Section -->
-    <section id="blog" class="section">
+    <section id="blog" class="section bg-light">
+        <div class="section-bg"></div>
         <div class="container text-center">
-            <h6 class="subtitle">My Blogs</h6>
-            <h6 class="section-title mb-4">Latest News</h6>
-            <p class="mb-5 pb-4">Stay updated with my latest insights on programming, technology, and development.<br> Here, I share my experiences, challenges, and tips that I’ve learned throughout my projects.</p>
-
+            <h6 class="subtitle" data-aos="fade-up">My Blogs</h6>
+            <h6 class="section-title mb-4" data-aos="fade-up" data-aos-delay="100">Latest News</h6>
+            <p class="mb-5 pb-4" data-aos="fade-up" data-aos-delay="200">Stay updated with my latest insights on programming, technology, and development. Here, I share my experiences, challenges, and tips that I’ve learned throughout my projects.</p>
             <div class="row text-left">
-                <div class="col-md-4">
-                    <div class="card border mb-4">
-                        <img src="assets/imgs/bug.jpg" alt="" class="card-img-top w-100">
+                <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="card">
+                        <img src="assets/imgs/bug.jpg" alt="Fun Fact" class="card-img-top">
                         <div class="card-body">
                             <h5 class="card-title">Fun Fact</h5>
-                            <div class="post-details">
-                                <a href="#home">Posted By: Ken</a>
-                                <a href="javascript:void(0)" id="like-btn-1" onclick="likePost(1)">
-                                    <i class="ti-thumb-up"></i> 
-                                    <span id="likes-count-1">456</span></a>
-                                <a href="javascript:void(0)"><i class="ti-comment"></i> 123</a>
+                            <div class="post-details mb-3">
+                                <a href="#home" class="text-muted">Posted By: Ken</a>
+                                <a href="javascript:void(0)" id="like-btn-1" onclick="likePost(1)" class="ms-3"><i class="fas fa-thumbs-up"></i> <span id="likes-count-1">456</span></a>
+                                <a href="javascript:void(0)" class="ms-3"><i class="fas fa-comment"></i> 123</a>
                             </div>
-                            <p>The First Computer Bug was an actual bug: A Literal Moth in the Machine 🖥️🐞On September 9, 1947, a team of computer scientists, including ioneering figures like Grace Hopper, was working on the Harvard Mark II</p>
-                            <a href="https://medium.com/@iamRadhaKulkarni/the-first-computer-bug-a-literal-moth-in-the-machine-%EF%B8%8F-73a431f8df1c"  target="_blank">Read More..</a>
+                            <p>The First Computer Bug was an actual bug: A Literal Moth in the Machine 🖥️🐞On September 9, 1947, a team of computer scientists, including pioneering figures like Grace Hopper, was working on the Harvard Mark II</p>
+                            <a href="https://medium.com/@iamRadhaKulkarni/the-first-computer-bug-a-literal-moth-in-the-machine-%EF%B8%8F-73a431f8df1c" target="_blank" class="btn btn-outline-primary btn-sm">Read More</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card border mb-4">
-                        <img src="assets/imgs/java-web-development.jpg" alt="" class="card-img-top w-100">
+                <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="400">
+                    <div class="card">
+                        <img src="assets/imgs/java-web-development.jpg" alt="Web Development" class="card-img-top">
                         <div class="card-body">
                             <h5 class="card-title">Web Development</h5>
-                            <div class="post-details">
-                                <a href="#home">Posted By: Ken</a>
-                                <a href="javascript:void(0)"><i class="ti-thumb-up"></i> 456</a>
-                                <a href="javascript:void(0)"><i class="ti-comment"></i> 123</a>
+                            <div class="post-details mb-3">
+                                <a href="#home" class="text-muted">Posted By: Ken</a>
+                                <a href="javascript:void(0)" class="ms-3"><i class="fas fa-thumbs-up"></i> 456</a>
+                                <a href="javascript:void(0)" class="ms-3"><i class="fas fa-comment"></i> 123</a>
                             </div>
                             <p>JavaScript is the most popular programming language for web development. It allows for dynamic and interactive web pages and</p>
-                            <a href="https://www.linkedin.com/pulse/top-10-facts-website-development-articondesignagency-zckrf?trk=public_post_main-feed-card_feed-article-content" target="_blank">Read More..</a>
+                            <a href="https://www.linkedin.com/pulse/top-10-facts-website-development-articondesignagency-zckrf?trk=public_post_main-feed-card_feed-article-content" target="_blank" class="btn btn-outline-primary btn-sm">Read More</a>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-4">
-                    <div class="card border mb-4">
-                        <img src="assets/imgs/blog-3.jpg" alt="" class="card-img-top w-100">
+                <div class="col-md-4 mb-4" data-aos="fade-up" data-aos-delay="500">
+                    <div class="card">
+                        <img src="assets/imgs/blog-3.jpg" alt="Laravel Faker OpenAI" class="card-img-top">
                         <div class="card-body">
                             <h5 class="card-title">Laravel Faker OpenAI</h5>
-                            <div class="post-details">
-                                <a href="#home">Posted By: Ken</a>
-                                <a href="javascript:void(0)" id="like-btn-1" onclick="likePost(1)">
-                                    <i class="ti-thumb-up"></i> 
-                                    <span id="likes-count-1">456</span> <!-- This will display the current like count -->
-                                </a>
-                                <a href="javascript:void(0)">
-                                    <i class="ti-comment"></i> 123
-                                </a>
-                                </div>
-                                <p>Imagine generating fake data that more closely mirrors real-world scenarios. Laravel Faker OpenAI, developed by JP Caparas, seamlessly integrates OpenAI's</p>
-                                <a href="https://laravel-news.com/laravel-faker-openai"  >Read More..</a>
-
+                            <div class="post-details mb-3">
+                                <a href="#home" class="text-muted">Posted By: Ken</a>
+                                <a href="javascript:void(0)" id="like-btn-2" onclick="likePost(2)" class="ms-3"><i class="fas fa-thumbs-up"></i> <span id="likes-count-2">456</span></a>
+                                <a href="javascript:void(0)" class="ms-3"><i class="fas fa-comment"></i> 123</a>
+                            </div>
+                            <p>Imagine generating fake data that more closely mirrors real-world scenarios. Laravel Faker OpenAI, developed by JP Caparas, seamlessly integrates OpenAI's</p>
+                            <a href="https://laravel-news.com/laravel-faker-openai" target="_blank" class="btn btn-outline-primary btn-sm">Read More</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Hire me section -->
-    <section class="bg-gray p-0 section">
+    <!-- Hire Me Section -->
+    <section class="bg-primary text-white p-0 section">
+        <div class="section-bg"></div>
         <div class="container">
-            <div class="card bg-primary">
-                <div class="card-body text-light">
+            <div class="card bg-primary border-0">
+                <div class="card-body py-5">
                     <div class="row align-items-center">
-                        <div class="col-sm-9 text-center text-sm-left">
+                        <div class="col-md-9 text-center text-md-start" data-aos="fade-right">
                             <h5 class="mt-3">Hire Me For Your Project</h5>
-                            <p class="mb-3">Looking for a reliable and skilled developer? <br>Get in touch, and let's discuss how we can work together to achieve your goals with high-quality, efficient solutions.</p>
+                            <p class="mb-3">Looking for a reliable and skilled developer? Get in touch, and let's discuss how we can work together to achieve your goals with high-quality, efficient solutions.</p>
                         </div>
-                        <div class="col-sm-3 text-center text-sm-right">
-                            <button class="btn btn-light rounded" id="hire-me-button-2">Hire Me</button>
+                        <div class="col-md-3 text-center text-md-end" data-aos="fade-left">
+                            <button class="btn btn-light btn-custom" id="hire-me-button-2">Hire Me</button>
                         </div>
                     </div>
-                </div> 
+                </div>
             </div>
         </div>
-    </section>      
-    <!-- End od Hire me section. -->
+    </section>
 
     <!-- Contact Section -->
-    <section id="contact" class="position-relative section">
+    <section id="contact" class="section">
+        <div class="section-bg"></div>
         <div class="container text-center">
-            <h6 class="subtitle">Contact</h6>
-            <h6 class="section-title mb-4">Get In Touch With Me</h6>
-            <p class="mb-5 pb-4">I’m always open to new opportunities and collaborations. If you have a project in mind, or if you just want to say hello, feel free to reach out.  <br> I’d love to discuss how I can assist with your software development needs and bring your ideas to life.</p>
-
-            <div class="contact text-left">
-                <form id="contact-form">
-                    <div class="form-group">
-                        <input type="email" class="form-control" id="exampleInputEmail1" name="email" placeholder="Enter email" required>
-                    </div>
-                    <!--<div class="form-group">
-                        <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Password" required>
-                    </div>-->
-                    <div class="form-group">
-                        <textarea name="message" id="message" cols="30" rows="5" class="form-control" placeholder="Message" required></textarea>
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-block rounded w-lg">Send Message</button>
-                </form>
-                
-                <script>
-                  (function() {
-                    emailjs.init("h-qUGQGz-oWnHsVnm"); // Replace with your EmailJS user ID
-                  })();
-                
-                  document.getElementById("contact-form").addEventListener("submit", function(event) {
-                    event.preventDefault();
-                    emailjs.sendForm("service_qnq419g", "template_4lodvws", this)
-                      .then(function(response) {
-                        alert("Message sent successfully");
-                      }, function(error) {
-                        alert("Failed to send message: " + error.text);
-                      });
-                  });
-                </script>
-                <div class="contact-infos">
-                    <div class="item">
-                        <i class="ti-location-pin"></i>
-                        <div class="">
-                            <h5>Location</h5>
-                            <p> Mombasa, Kenya</p>
-                        </div>                          
-                    </div>
-                    <div class="item">
-                        <i class="ti-mobile"></i>
-                        <div>
-                            <h5>Phone Number</h5>
-                            <p><a href="https://wa.link/vgyk8g" target="_blank">+254 740 527 585</a></p>
-                        </div>                          
-                    </div>
-                    <div class="item">
-                        <i class="ti-email"></i>
-                        <div class="mb-0">
-                            <h5>Email Address</h5>
-                            <a href="mailto:kennmuteti99@gmail.com" title="send ema">kennmuteti99@gmail.com</a>
+            <h6 class="subtitle" data-aos="fade-up">Contact</h6>
+            <h6 class="section-title mb-4" data-aos="fade-up" data-aos-delay="100">Get In Touch With Me</h6>
+            <p class="mb-5 pb-4" data-aos="fade-up" data-aos-delay="200">I’m always open to new opportunities and collaborations. If you have a project in mind, or if you just want to say hello, feel free to reach out. I’d love to discuss how I can assist with your software development needs and bring your ideas to life.</p>
+            <div class="row">
+                <div class="col-md-6 mb-4" data-aos="fade-right">
+                    <form id="contact-form">
+                        <div class="form-group mb-4">
+                            <input type="email" class="form-control" id="exampleInputEmail1" name="email" placeholder="Enter email" required>
                         </div>
-                    </div>
-                </div>                  
-            </div>
-        </div>  
-        <div id="map">
-            <img src="assets/imgs/Software.jpeg" alt="Background Image" style="width: 100%; height: 100%; object-fit: cover;">
-        </div>      
-    </section>
-    <!-- End of Contact Section -->
-
-    <!-- Page Footer -->
-    <footer class="page-footer">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-sm-6">
-                    <p>Copyright <script>document.write(new Date().getFullYear())</script> &copy; <a href="http://www.devcrud.com" target="_blank">DevCRUD</a></p>
+                        <div class="form-group mb-4">
+                            <textarea name="message" id="message" cols="30" rows="6" class="form-control" placeholder="Message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-custom w-100">Send Message</button>
+                    </form>
                 </div>
-                <div class="col-sm-6">
-                    <div class="socials">
-                        <a class="social-item" href="https://www.facebook.com/kenny.muteti.90/" target="_blank"><i class="ti-facebook"></i></a>
-                        <a class="social-item" href="https://wa.link/vgyk8g" target="_blank"><i class="fa fa-whatsapp"></i></a>
-                        <a class="social-item" href="https://github.com/kendakyn" target="_blank"><i class="ti-github"></i></a>
-                        <a class="social-item" href="https://www.instagram.com/ken_da_kyn/" target="_blank"><i class="ti-instagram"></i></a>
+                <div class="col-md-6 contact-infos" data-aos="fade-left">
+                    <div class="item mb-5">
+                        <i class="fas fa-map-marker-alt fa-3x text-primary mb-3"></i>
+                        <h5>Location</h5>
+                        <p>Mombasa, Kenya</p>
+                    </div>
+                    <div class="item mb-5">
+                        <i class="fas fa-phone fa-3x text-primary mb-3"></i>
+                        <h5>Phone Number</h5>
+                        <p><a href="https://wa.link/vgyk8g" target="_blank">+254 740 527 585</a></p>
+                    </div>
+                    <div class="item">
+                        <i class="fas fa-envelope fa-3x text-primary mb-3"></i>
+                        <h5>Email Address</h5>
+                        <p><a href="mailto:kennmuteti99@gmail.com" title="Send Email">kennmuteti99@gmail.com</a></p>
                     </div>
                 </div>
             </div>
         </div>
-    </footer> 
-    <!-- End of page footer -->
-	
-	<!-- core  -->
-    <script src="assets/vendors/jquery/jquery-3.4.1.js"></script>
-    <script src="assets/vendors/bootstrap/bootstrap.bundle.js"></script>
-    <!-- bootstrap 3 affix -->
-	<script src="assets/vendors/bootstrap/bootstrap.affix.js"></script>
+        <div id="map" class="mt-5">
+            <img src="assets/imgs/Software.jpeg" alt="Background Image" style="width: 100%; height: 350px; object-fit: cover; filter: brightness(0.7); border-radius: 15px;">
+        </div>
+    </section>
 
-    <!-- steller js -->
-    <script src="assets/js/steller.js"></script>
-    <script src="script.js"></script>
+    <!-- Footer -->
+    <footer class="page-footer">
+        <div class="container text-center">
+            <div class="row align-items-center">
+                <div class="col-md-6 mb-4 mb-md-0">
+                    <p>Copyright <script>document.write(new Date().getFullYear())</script> © <a href="http://www.devcrud.com" target="_blank">DevCRUD</a></p>
+                </div>
+                <div class="col-md-6">
+                    <div class="socials">
+                        <a class="social-item" href="https://www.facebook.com/kenny.muteti.90/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a class="social-item" href="https://wa.link/vgyk8g" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                        <a class="social-item" href="https://github.com/kendakyn" target="_blank"><i class="fab fa-github"></i></a>
+                        <a class="social-item" href="https://www.instagram.com/ken_da_kyn/" target="_blank"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
     <script>
-        document.getElementById('hire-me-button-1').addEventListener('click', function(e) {
+        // Initialize AOS
+        AOS.init({
+            duration: 1200,
+            once: true
+        });
+
+        // Dark Mode Toggle
+        const toggleButton = document.getElementById('darkModeToggle');
+        toggleButton.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            toggleButton.innerHTML = document.body.classList.contains('dark-mode') ? 
+                '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+        });
+
+        // Navbar Scroll Effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Typed.js for Header
+        const typed = new Typed('#typed-job', {
+            strings: ['Software Developer', 'Problem Solver', 'Code Enthusiast'],
+            typeSpeed: 50,
+            backSpeed: 30,
+            loop: true
+        });
+
+        // Particles.js
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: '#ffffff' },
+                shape: { type: 'circle' },
+                opacity: { value: 0.5, random: true },
+                size: { value: 3, random: true },
+                line_linked: { enable: true, distance: 150, color: '#ffffff', opacity: 0.4, width: 1 },
+                move: { enable: true, speed: 2, direction: 'none', random: false, straight: false, out_mode: 'out' }
+            },
+            interactivity: {
+                detect_on: 'canvas',
+                events: { onhover: { enable: true, mode: 'repulse' }, onclick: { enable: true, mode: 'push' } },
+                modes: { repulse: { distance: 100, duration: 0.4 }, push: { particles_nb: 4 } }
+            },
+            retina_detect: true
+        });
+
+        // Skills Chart
+        const ctx = document.getElementById('skillsChart').getContext('2d');
+        const skillsChart = new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: ['Web Development', 'Software Development', 'Mobile App Development', 'Database Management'],
+                datasets: [{
+                    label: 'Skill Level',
+                    data: [99, 92, 95, 98],
+                    backgroundColor: 'rgba(0, 123, 255, 0.2)',
+                    borderColor: 'var(--primary)',
+                    borderWidth: 2,
+                    pointBackgroundColor: 'var(--accent)',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: 'var(--accent)'
+                }]
+            },
+            options: {
+                scales: {
+                    r: {
+                        angleLines: { color: 'rgba(0, 0, 0, 0.1)' },
+                        grid: { color: 'rgba(0, 0, 0, 0.1)' },
+                        pointLabels: { font: { size: 14, family: 'Poppins' } },
+                        ticks: { beginAtZero: true, max: 100, stepSize: 20 }
+                    }
+                },
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+
+        // Hire Me Buttons
+        document.getElementById('hire-me-button-1').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+        });
+        document.getElementById('hire-me-button-2').addEventListener('click', (e) => {
             e.preventDefault();
             document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
         });
 
-        document.getElementById('hire-me-button-2').addEventListener('click', function(e) {
-        e.preventDefault();
-        document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
-    });
+        // EmailJS Initialization
+        (function() {
+            emailjs.init("h-qUGQGz-oWnHsVnm");
+        })();
+
+        document.getElementById("contact-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            emailjs.sendForm("service_qnq419g", "template_4lodvws", this)
+                .then(() => alert("Message sent successfully"), 
+                      (error) => alert("Failed to send message: " + error.text));
+        });
+
+        // Like Post Functionality
+        function likePost(postId) {
+            const likesCount = document.getElementById(`likes-count-${postId}`);
+            let count = parseInt(likesCount.textContent);
+            likesCount.textContent = count + 1;
+            likesCount.style.color = 'var(--primary)';
+            likesCount.style.transition = 'color 0.3s ease';
+        }
+
+        // Scroll Progress
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.body.scrollHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            document.getElementById('scroll-progress').style.width = `${scrollPercent}%`;
+        });
+
+        // Back to Top
+        const backToTop = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // Project Modal Data
+        const projectData = {
+            student: {
+                title: 'Student Application Module',
+                description: 'A module designed to streamline student applications with a user-friendly interface and robust backend.',
+                image: 'assets/imgs/application.jpeg',
+                link: 'https://github.com/kendakyn/Student_Application-Modele'
+            },
+            project2: {
+                title: 'Project Title',
+                description: 'A placeholder project showcasing versatility in software development.',
+                image: 'assets/imgs/folio-2.jpg',
+                link: '#'
+            },
+            calculator: {
+                title: 'Calculator',
+                description: 'A simple yet efficient calculator application built with modern technologies.',
+                image: 'assets/imgs/folio-3.jpg',
+                link: '#'
+            },
+            password: {
+                title: 'Password Generator',
+                description: 'A secure tool to generate random passwords with customizable options.',
+                image: 'assets/imgs/folio-4.jpg',
+                link: '#'
+            },
+            manuscript: {
+                title: 'Manuscript Submission System',
+                description: 'A comprehensive system for managing manuscript submissions and reviews.',
+                image: 'assets/imgs/folio-5.jpg',
+                link: '#'
+            },
+            project6: {
+                title: 'Project Title',
+                description: 'Another placeholder project demonstrating coding skills.',
+                image: 'assets/imgs/folio-6.jpg',
+                link: '#'
+            }
+        };
+
+        document.querySelectorAll('.img-wrapper').forEach(wrapper => {
+            wrapper.addEventListener('click', () => {
+                const project = wrapper.getAttribute('data-project');
+                const data = projectData[project];
+                document.getElementById('projectModalLabel').textContent = data.title;
+                document.getElementById('projectImage').src = data.image;
+                document.getElementById('projectTitle').textContent = data.title;
+                document.getElementById('projectDescription').textContent = data.description;
+                document.getElementById('projectLink').href = data.link;
+            });
+        });
     </script>
-    
 </body>
 </html>
